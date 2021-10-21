@@ -21,7 +21,7 @@ func main() {
 	r.GET("/reset_wg", func(c *gin.Context) {
 		command := "./reset_wg.sh"
 		fmt.Println(command)
-		cmd := exec.Command("/bin/bash", "-c", "")
+		cmd := exec.Command("/bin/bash", "-c", command)
 		_, err := cmd.Output()
 		if err != nil {
 			fmt.Printf("Execute Shell:%s failed with error:%s", command, err.Error())

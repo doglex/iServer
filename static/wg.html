@@ -14,13 +14,17 @@
     <div style="white-space: pre-line;">
     {{ message }}
     </div>
+    <hr/>
+    <button v-on:click="reset_wg()">{{reset_status}}</button>
+<!--    <button v-on:click="reset" :disabled="reset_status != 'Reset'">{{reset_status}</button>-->
 </div>
 
 <script>
     var app = new Vue({
         el: '#app',
         data: {
-            message: 'Loading...'
+            message: 'Loading...',
+            reset_status: "Reset",
         },
         mounted: function () {
             this.$nextTick(function () {
@@ -28,9 +32,34 @@
                 let that = this
                 axios.get('/show_wg')
                     .then(function (response) {
-                        that.message = atob(response.data.message)
+                        let msg = response.data.message;
+                        that.message = msg === 'error' ? 'error' : atob(msg)
                     })
             })
+        },
+        methods: {
+            reset_wg: function () {
+                console.log("yess")
+                this.reset_status = "Waiting...";
+                this.message = "Waiting...";
+                let that = this;
+                axios.get('/reset_wg')
+                    .then(function (response) {
+                        let msg = response.data.message;
+                        if (msg === 'reset') {
+                            that.reset_status = "Reset"
+                        }
+                        else {
+                            that.reset_status = "Error"
+                        }
+                    });
+                this.message = "Refreshing...";
+                axios.get('/show_wg')
+                    .then(function (response) {
+                        let msg = response.data.message;
+                        that.message = msg === 'error' ? 'error' : atob(msg)
+                    })
+            }
         }
     })
 </script>

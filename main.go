@@ -36,9 +36,9 @@ func main() {
 		})
 	})
 	r.GET("/show_wg", func(c *gin.Context) {
-		command := "cat /etc/wireguard/wg0_client >> cat.cat"
+		command := "cat /etc/wireguard/wg0_client "
 		fmt.Println(command)
-		cmd := exec.Command("/bin/bash", "-c", "")
+		cmd := exec.Command("/bin/bash", "-c", command)
 		output, err := cmd.Output()
 		if err != nil {
 			fmt.Printf("Execute Shell:%s failed with error:%s", command, err.Error())

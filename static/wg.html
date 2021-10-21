@@ -15,7 +15,7 @@
     {{ message }}
     </div>
     <hr/>
-    <button v-on:click="reset_wg()">{{reset_status}}</button>
+    <button v-on:click="reset_wg()" :disabled="reset_status != 'Reset'">{{reset_status}}</button>
 <!--    <button v-on:click="reset" :disabled="reset_status != 'Reset'">{{reset_status}</button>-->
 </div>
 
@@ -39,7 +39,6 @@
         },
         methods: {
             reset_wg: async function () {
-                console.log("yess")
                 this.reset_status = "Waiting...";
                 this.message = "Waiting...";
                 let that = this;

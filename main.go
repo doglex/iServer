@@ -8,6 +8,9 @@ import (
 
 func main() {
 	r := gin.Default()
+	r.StaticFile("/favicon.ico", "./static/fav.ico")
+	r.StaticFile("/wg", "./static/wg.html")
+
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "hello work",

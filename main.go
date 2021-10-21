@@ -19,7 +19,7 @@ func main() {
 		})
 	})
 	r.GET("/reset_wg", func(c *gin.Context) {
-		command := "./reset_wg.sh"
+		command := "/opt/wireguard.sh -n && /opt/wireguard.sh -s"
 		fmt.Println(command)
 		cmd := exec.Command("/bin/bash", "-c", command)
 		_, err := cmd.Output()

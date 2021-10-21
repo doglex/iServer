@@ -38,12 +38,12 @@
             })
         },
         methods: {
-            reset_wg: function () {
+            reset_wg: async function () {
                 console.log("yess")
                 this.reset_status = "Waiting...";
                 this.message = "Waiting...";
                 let that = this;
-                axios.get('/reset_wg')
+                await axios.get('/reset_wg')
                     .then(function (response) {
                         let msg = response.data.message;
                         if (msg === 'reset') {
@@ -54,7 +54,7 @@
                         }
                     });
                 this.message = "Refreshing...";
-                axios.get('/show_wg')
+                await axios.get('/show_wg')
                     .then(function (response) {
                         let msg = response.data.message;
                         that.message = msg === 'error' ? 'error' : atob(msg)

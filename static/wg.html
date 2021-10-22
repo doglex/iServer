@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id="app">
-    <h3>To Now</h3>
+    <h3>To Now</h3> <button v-on:click="copyText()">copy</button>
     <hr/>
     <div style="white-space: pre-line;">
     {{ message }}
@@ -58,6 +58,25 @@
                         let msg = response.data.message;
                         that.message = msg === 'error' ? 'error' : atob(msg)
                     })
+            },
+            copyText: async function() {
+                target = document.createElement('div');
+                target.id = 'tempTarget';
+                target.style.opacity = '0';
+                target.innerText = this.message;
+                document.body.appendChild(target);
+                try {
+                    let range = document.createRange();
+                    range.selectNode(target);
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range);
+                    document.execCommand('copy');
+                    window.getSelection().removeAllRanges();
+                    console.log('复制成功')
+                } catch (e) {
+                    console.log('复制失败')
+                }
+                target.parentElement.removeChild(target);
             }
         }
     })

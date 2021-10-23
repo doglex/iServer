@@ -3,11 +3,13 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"net/http"
 	"os/exec"
 )
 
 func main() {
 	r := gin.Default()
+	r.StaticFS("/static", http.Dir("static"))
 	r.StaticFile("/favicon.ico", "./static/fav.ico")
 	r.StaticFile("/wg", "./static/wg.html")
 
